@@ -1,6 +1,6 @@
 import json
 from gpt_fragments.api_client import GPTClient
-from gpt_fragments.utils import read_jsonl, write_jsonl
+from gpt_fragments.utils import read_jsonl, write_jsonl, get_article_context
 from tqdm import tqdm
 
 class FragmentProcessor:
@@ -21,15 +21,14 @@ class FragmentProcessor:
         write_jsonl(output_file, fragments)
 
     def generate_fragment(self, article):
-        summary, tags = self.gpt_client.generate_summary_and_tags(article['text'])
-        # print(f"Summary: {summary}")
-        # print(f"Tags: {tags}")
-        # print(f"article: {article}")
+        prompt = get_article_context(article['url'])
+        title, summary, tags = self.gpt_client.generate_summary_and_tags(article['text'], prompt)
+
         return {
-            # 'title': article['text'],
+            'title': title,
             'content': article['text'],
             'summary': summary,
             'tags': tags,
             'original_reference': article['url'],
-            'related_fragments': []
+            'related_fragments': [] #TODO: Implement related fragments
         }
