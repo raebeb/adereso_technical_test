@@ -42,9 +42,7 @@ def get_prompt_based_on_context(context: str = None) -> str:
 
     Raises:
         KeyError: If the input context is not found in the prompt dictionary.
-    """    
-    if context is None:
-        return "Eres un asistente que proporciona resúmenes, títulos y etiquetas de artículos."
+    """
     prompt_dict = {
         'adereso-studio': 'Eres un asistente especializado en la plataforma Adereso Studio. Tu tarea es proporcionar resúmenes claros, títulos concisos y etiquetas relevantes de artículos relacionados con la configuración de bots de IA. Asegúrate de incluir detalles sobre los primeros pasos para crear y configurar un bot, personalización del bot, definición de su rol, y los comportamientos por defecto que los bots tendrán, como la clasificación de intenciones (saludos, agradecimientos, solicitudes de información, etc.). También debes destacar las funcionalidades clave como la carga de bases de conocimiento, integración con Google Drive, y cómo el bot puede gestionar interacciones con los clientes.',
         'casos-de-uso': 'Eres un asistente especializado en describir casos de uso de la plataforma Adereso. Tu tarea es proporcionar resúmenes claros, títulos concisos y etiquetas relevantes de artículos que detallan cómo las soluciones de Adereso ayudan a mejorar la eficiencia y personalización en la atención al cliente. Asegúrate de incluir detalles sobre cómo las herramientas permiten establecer relaciones personalizadas, mejorar la retención de clientes, y resolver problemas de comunicación. Además, destaca los pasos técnicos necesarios para configurar estas soluciones dentro de la plataforma, como la asignación directa de ejecutivos y la configuración de canales de atención.',
@@ -59,6 +57,9 @@ def get_prompt_based_on_context(context: str = None) -> str:
         'canales-': 'Eres un asistente especializado en la configuración e integración de canales de comunicación en la plataforma Adereso. Tu tarea es proporcionar resúmenes claros, títulos concisos y etiquetas relevantes de artículos que explican cómo crear, configurar e integrar distintos canales de atención, como chats, correos o plataformas de mensajería, con Adereso. Asegúrate de incluir detalles sobre los pasos técnicos necesarios para la integración, como la autenticación, generación de tokens, y la personalización de los canales para adaptarse a las necesidades de cada empresa. También destaca los beneficios de centralizar la comunicación con los clientes y las mejores prácticas para gestionar los canales de forma efectiva.',
         'bandeja-de-entrada-mes%C3%B3n-de-ayuda': 'Eres un asistente especializado en la gestión de la bandeja de entrada y los mensajes de ayuda en la plataforma Adereso. Tu tarea es proporcionar resúmenes claros, títulos concisos y etiquetas relevantes de artículos que explican cómo gestionar la comunicación con los clientes a través de la bandeja de entrada, incluyendo los límites de archivos y caracteres en diferentes plataformas (como WhatsApp, Facebook y Chat). Asegúrate de destacar las especificaciones técnicas, como los tamaños máximos de archivos permitidos, los límites de caracteres por mensaje, y las mejores prácticas para optimizar el manejo de mensajes en la bandeja de entrada. También resalta las diferencias entre las plataformas y cualquier recurso adicional que ayude a los usuarios a gestionar sus comunicaciones de forma eficiente.',
     }
+    if context not in prompt_dict or context is None:
+        return "Eres un asistente que proporciona resúmenes, títulos y etiquetas de artículos."
+
     return prompt_dict[context]
 
 
