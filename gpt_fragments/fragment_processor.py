@@ -1,6 +1,7 @@
 from gpt_fragments.api_client import GPTClient
 from gpt_fragments.utils import read_jsonl, write_jsonl, get_article_context
 from tqdm import tqdm
+import concurrent.futures
 
 class FragmentProcessor:
     """
@@ -28,7 +29,6 @@ class FragmentProcessor:
         Process the fragments from an input file and generate related fragments.
 
         Args:
-            self: The object instance of the class.
             input_file (str): The file path to the input JSONL file.
             output_file (str): The file path to write the output JSONL file.
 
@@ -37,16 +37,22 @@ class FragmentProcessor:
 
         Raises:
             IOError: If there is an issue with reading or writing the files.
-        """        
+        """
         fragments = []
-
         articles = list(read_jsonl(input_file))
-        total_articles = len(articles)
 
-        for article in tqdm(articles, total=total_articles):
-            if article['type'] == 'article':
-                fragment = self.generate_fragment(article)
-                fragments.append(fragment)
+        article_list = [article for article in articles if article['type'] == 'article']
+        total_articles = len(article_list)
+
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            futures = {executor.submit(self.generate_fragment, article): article for article in article_list}
+
+            for future in tqdm(concurrent.futures.as_completed(futures), total=total_articles):
+                try:
+                    fragment = future.result()
+                    fragments.append(fragment)
+                except Exception as e:
+                    print(f"Error procesando un fragmento: {e}")
 
         for fragment in fragments:
             fragment['related_fragments'] = self.find_related_fragments(fragment, fragments)
