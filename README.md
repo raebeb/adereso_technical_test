@@ -117,8 +117,8 @@ pytest tests
 ## Trabajos futuros y posibles mejoras:
 - [ ] Implementar **PDM** o **Poetry** para gestionar las dependencias de forma más eficiente y moderna.
 - [ ] Utilizar **difflib** o un algoritmo más robusto para mejorar la búsqueda y detección de fragmentos relacionados.
-- [ ] Generar dinámicamente los prompts según el contexto mediante una nueva llamada a la API de GPT, evitando así modificar manualmente el diccionario de prompts y previniendo un crecimiento innecesario del mismo.
+- [x] Generar dinámicamente los prompts según el contexto mediante una nueva llamada a la API de GPT, evitando así modificar manualmente el diccionario de prompts y previniendo un crecimiento innecesario del mismo.
 - [ ] Ampliar la cobertura de pruebas unitarias para asegurar la detección precisa de fragmentos relacionados y mejorar la robustez del código.
-- [ ] Optimizar el procesamiento de archivos grandes mediante paralelización o procesamiento por lotes para mejorar el rendimiento y reducir el tiempo de ejecución.
+- [x] Optimizar el procesamiento de archivos grandes mediante paralelización o procesamiento por lotes para mejorar el rendimiento y reducir el tiempo de ejecución.
 - [ ] Agregar soporte para nuevos formatos de entrada/salida (CSV, XML) para ampliar la flexibilidad del procesamiento.
 
