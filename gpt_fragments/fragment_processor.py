@@ -70,7 +70,7 @@ class FragmentProcessor:
         Returns:
             dict: A dictionary containing the generated fragment with 'title', 'content', 'summary', 'tags', 'original_reference', and 'related_fragments'.
         """        
-        prompt = get_article_context(article['url'])
+        prompt = get_article_context(article['url'], self.gpt_client)
         title, summary, tags = self.gpt_client.generate_summary_and_tags(article['text'], prompt)
 
         return {
