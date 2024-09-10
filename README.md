@@ -45,7 +45,7 @@ git clone https://github.com/raebeb/adereso_technical_test.git
 
 ### 2. Descarga e instala Python 
 
-(En caso de tener instalado python, pip y algun entorno virtual, saltar al [siguiente paso](#ejecución))
+(En caso de tener instalado python, pip y algun entorno virtual, saltar al [siguiente paso](#ejecución-))
 
 Sigue las instrucciones de https://www.python.org/downloads/
 
