@@ -36,6 +36,7 @@ class GPTClient:
             None
         """        
         self.client = OpenAI(api_key=OPENAI_TOKEN)
+        self.prompt_cache = {}
 
     def generate_summary_and_tags(self, content: str, prompt: str = None) -> tuple:
         """
@@ -69,3 +70,38 @@ class GPTClient:
         tags = re.search(r'\*\*Tags:\*\*(.*?)$', response, re.DOTALL).group(1).strip().split()
 
         return title, summary, tags
+
+    def generate_prompt(self, context: str) -> str:
+        """
+        Generate a dynamic prompt using OpenAI API based on the provided context.
+        If the prompt for the context has already been generated, return it from the cache.
+
+        Args:
+            context (str): The context to generate the prompt for.
+
+        Returns:
+            str: The generated prompt based on the context.
+        """
+
+        if context in self.prompt_cache:
+            return self.prompt_cache[context]
+
+        prompt = f"Eres un asistente especializado en artículos sobre {context}. Genera un prompt adecuado para artículos en este contexto. Solo responde con el prompt que debo usar para generar resúmenes, títulos y etiquetas relevantes."
+
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": f"Genera un prompt adecuado para artículos en el contexto '{context}' sin incluir formato adicional o contenido innecesario."},
+                ],
+                max_tokens=500,
+            )
+            response_content = response.choices[0].message.content
+
+            self.prompt_cache[context] = response_content
+            return response_content
+
+        except Exception as e:
+            print(f"Error al generar el prompt dinámicamente: {e}")
+            return "Eres un asistente que proporciona resúmenes, títulos y etiquetas de artículos."
