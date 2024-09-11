@@ -66,11 +66,11 @@ En la raíz del proyecto, ejecuta el siguiente comando:
 Una vez que se hayan instalado todas las dependencias podemos seguir con el siguiente paso  
 
 ### Variables de entorno
-En el archivo ```.env```, debes establecer el valor de la API key de OpenAI. De lo contrario, el programa no podrá ejecutarse correctamente
+En el archivo ```.env```, debes establecer el valor de la API key de OpenAI. De lo contrario, el programa no podrá ejecutarse correctamente  
 ![image](https://github.com/user-attachments/assets/f717c3d3-ff1b-4b28-af33-e6b3d61d47e4)
 
 ### Generación de fragmentos
-EUna vez que hayas instalado las dependencias, puedes ejecutar el siguiente comando en la raíz del proyecto:
+Una vez que hayas instalado las dependencias, puedes ejecutar el siguiente comando en la raíz del proyecto:
 ```
 python main.py
 ```
